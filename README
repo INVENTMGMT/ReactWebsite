@@ -1,1 +1,9 @@
-I copied over the first react app we did, we can use this as a starting spot
+#Instructions
+
+<ol>
+<li>Clone the repo<li>
+<li><code>npm install</code></li>
+<li><code>npm start</code></li>
+
+<p>This should install all the necessary dependencies</p>
+
