@@ -10,12 +10,13 @@ import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import Paper from '@material-ui/core/Paper';
-import { makeStyles } from '@material-ui/core/styles';
+import { withStyles, makeStyles } from '@material-ui/core/styles';
 
 
 const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1,
+    justifyContent: 'center',
   },
   paperTopBar: {
     padding: theme.spacing(3),
@@ -37,7 +38,50 @@ const useStyles = makeStyles((theme) => ({
     height: 200,
     borderRadius: 35,
   },
+  topBarButton:{
+    backgroundColor:'#EDFCFF',
+    textAlign: 'center',
+    color: '#2541B2',
+    borderRadius: 35,
+  },
 }));
+
+
+const BootstrapButton = withStyles({
+  root: {
+    boxShadow: 'none',
+    textTransform: 'none',
+    fontSize: 16,
+    padding: '6px 12px',
+    border: '1px solid',
+    lineHeight: 1.5,
+    backgroundColor: '#EDFCFF',
+    color: '#2541B2',
+    fontFamily: [
+      '-apple-system',
+      'BlinkMacSystemFont',
+      '"Segoe UI"',
+      'Roboto',
+      '"Helvetica Neue"',
+      'Arial',
+      'sans-serif',
+      '"Apple Color Emoji"',
+      '"Segoe UI Emoji"',
+      '"Segoe UI Symbol"',
+    ].join(','),
+    '&:hover': {
+      borderColor: '#0062cc',
+      boxShadow: 'none',
+    },
+    '&:active': {
+      boxShadow: 'none',
+      borderColor: '#FF0000',
+    },
+    '&:focus': {
+      boxShadow: '0 0 0 0.2rem rgba(0,180,216,.5)',
+    },
+  },
+})(Button);
 
 
 function App() {
@@ -54,8 +98,36 @@ function App() {
     <div className={classes.root}>
       <Grid container spacing={5}>
 
-        <Grid item xs={12} spacing={0}>
-          <Paper elevation={3} className={classes.paperTopBar}>Top Bar</Paper>
+        <Grid item xs={12}>
+          <Paper elevation={3} className={classes.paperTopBar}>
+
+          <Grid container>
+            <Grid item xs={3}>
+              <BootstrapButton variant="contained" className={classes.margin}>
+                ADD PRODUCT
+              </BootstrapButton>
+            </Grid>
+
+            <Grid item xs={3}>
+              <BootstrapButton variant="contained" className={classes.margin}>
+                SHIPMENTS
+              </BootstrapButton>
+            </Grid>
+
+            <Grid item xs={3}>
+              <BootstrapButton variant="contained" className={classes.margin}>
+                STATISTICS
+              </BootstrapButton>
+            </Grid>
+
+            <Grid item xs={3}>
+              <BootstrapButton variant="contained" className={classes.margin}>
+                ACCOUNT
+              </BootstrapButton>
+            </Grid>
+          </Grid>
+
+          </Paper>
         </Grid>
 
         <Grid item xs={8} spacing={5} alignItems="center">
@@ -67,12 +139,10 @@ function App() {
         <Grid container xs={4} spacing={5} alignItems="center">
           <Grid item xs={12}>
             <Paper elevation={3} className={classes.paperInfo}>
-              Real Estate
             </Paper>
           </Grid>
           <Grid item xs={12}>
             <Paper elevation={3} className={classes.paperInfo}>
-              Real Estate
             </Paper>
           </Grid>
         </Grid>
