@@ -1,17 +1,11 @@
-import logo from './logo.svg';
 import './App.css';
 import React from 'react';
-import ReactDOM from 'react-dom';
 import Button from '@material-ui/core/Button';
-import SearchAppBar from './SearchBar';
 import Grid from "@material-ui/core/Grid";
 import List from '@material-ui/core/List';
-import ListItem from '@material-ui/core/ListItem';
-import ListItemIcon from '@material-ui/core/ListItemIcon';
-import ListItemText from '@material-ui/core/ListItemText';
 import Paper from '@material-ui/core/Paper';
 import { withStyles, makeStyles } from '@material-ui/core/styles';
-import TextField from '@material-ui/core/TextField';
+import Items from './Items';
 
 
 
@@ -33,7 +27,7 @@ const useStyles = makeStyles((theme) => ({
     alignItems: 'center',
     padding: theme.spacing(10),
     backgroundColor:'#EDFCFF',
-    height: 630,
+    height: 1000,
     borderRadius: 35,
   },
   paperInfo:{
@@ -41,6 +35,9 @@ const useStyles = makeStyles((theme) => ({
     backgroundColor: '#0077B6',
     height: 200,
     borderRadius: 35,
+  },
+  list:{
+    height: 175,
   },
 }));
 
@@ -84,11 +81,6 @@ const BootstrapButton = withStyles({
 
 
 function App() {
-
-
-  const handleClick = () => {
-    console.log("clicked");
-  };
 
   const clearSearch = () => {
     document.getElementById("SKU").value = "";
@@ -163,7 +155,11 @@ function App() {
 
         <Grid item xs={8} spacing={5} alignItems="center">
           <Grid item xs={12}>
-            <Paper elevation={3} className={classes.paperItems}></Paper>
+            <Paper elevation={3} className={classes.paperItems}>
+              <List className={classes.list}>
+                <Items/>
+              </List>
+            </Paper>
           </Grid>
         </Grid>
 
@@ -223,7 +219,7 @@ function App() {
             </Paper>
           </Grid>
           <Grid item xs={12}>
-            <Paper elevation={3} className={classes.paperInfo}>
+            <Paper elevation={3} className={classes.paperInfo}> {/* This is the blue box on the bottom right*/}
             </Paper>
           </Grid>
         </Grid>
