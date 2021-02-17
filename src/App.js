@@ -11,6 +11,8 @@ import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import Paper from '@material-ui/core/Paper';
 import { withStyles, makeStyles } from '@material-ui/core/styles';
+import TextField from '@material-ui/core/TextField';
+
 
 
 const useStyles = makeStyles((theme) => ({
@@ -27,6 +29,8 @@ const useStyles = makeStyles((theme) => ({
     alignItems: "center",
   },
   paperItems:{
+    textAlign: 'center',
+    alignItems: 'center',
     padding: theme.spacing(10),
     backgroundColor:'#EDFCFF',
     height: 630,
@@ -36,12 +40,6 @@ const useStyles = makeStyles((theme) => ({
     padding: theme.spacing(10),
     backgroundColor: '#0077B6',
     height: 200,
-    borderRadius: 35,
-  },
-  topBarButton:{
-    backgroundColor:'#EDFCFF',
-    textAlign: 'center',
-    color: '#2541B2',
     borderRadius: 35,
   },
 }));
@@ -57,6 +55,7 @@ const BootstrapButton = withStyles({
     lineHeight: 1.5,
     backgroundColor: '#EDFCFF',
     color: '#2541B2',
+    borderRadius: 35,
     fontFamily: [
       '-apple-system',
       'BlinkMacSystemFont',
@@ -89,9 +88,41 @@ function App() {
 
   const handleClick = () => {
     console.log("clicked");
-  }
+  };
 
-  document.body.style = "background: '#EDFCFF';";
+  const clearSearch = () => {
+    document.getElementById("SKU").value = "";
+    document.getElementById("Name").value = "";
+    document.getElementById("OOS").checked = false;
+  };
+
+  const submitSearch = () => {
+    var sku = document.getElementById("SKU").value;
+    var name = document.getElementById("Name").value;
+    var oos = document.getElementById("OOS");
+    alert(
+      'SKU: ' + sku + '\n' +
+      'Name: ' + name + '\n' +
+      'Inlc Out of Stock: ' + oos.checked
+    );
+ };
+
+  const addProduct = () => {
+    alert('ADD PRODUCT');
+  };
+
+  const shipments = () => {
+    alert('SHIPMENTS');
+  };
+
+  const statistics = () => {
+    alert('STATISTICS');
+  };
+
+  const account = () => {
+    alert('ACCOUNT');
+  };
+
   const classes = useStyles();
   return (
     <body style={{background: "#EDFCFF"}}>
@@ -103,25 +134,25 @@ function App() {
 
           <Grid container>
             <Grid item xs={3}>
-              <BootstrapButton variant="contained" className={classes.margin}>
+              <BootstrapButton variant="contained" onClick={() => {addProduct()}}>
                 ADD PRODUCT
               </BootstrapButton>
             </Grid>
 
             <Grid item xs={3}>
-              <BootstrapButton variant="contained" className={classes.margin}>
+              <BootstrapButton variant="contained" onClick={() => {shipments()}}>
                 SHIPMENTS
               </BootstrapButton>
             </Grid>
 
             <Grid item xs={3}>
-              <BootstrapButton variant="contained" className={classes.margin}>
+              <BootstrapButton variant="contained" onClick={() => {statistics()}}>
                 STATISTICS
               </BootstrapButton>
             </Grid>
 
             <Grid item xs={3}>
-              <BootstrapButton variant="contained" className={classes.margin}>
+              <BootstrapButton variant="contained" onClick={() => {account()}}>
                 ACCOUNT
               </BootstrapButton>
             </Grid>
@@ -132,13 +163,63 @@ function App() {
 
         <Grid item xs={8} spacing={5} alignItems="center">
           <Grid item xs={12}>
-            <Paper elevation={3} className={classes.paperItems}>Top Bar</Paper>
+            <Paper elevation={3} className={classes.paperItems}></Paper>
           </Grid>
         </Grid>
 
         <Grid container xs={4} spacing={5} alignItems="center">
           <Grid item xs={12}>
             <Paper elevation={3} className={classes.paperInfo}>
+
+              <Grid container>
+                <Grid item xs={4}></Grid>
+                <Grid item xs={4} alignItems="center">
+                  <span style={{color: "white"}}>
+                    SEARCH ITEMS
+                  </span><br /><br />
+                </Grid>
+                <Grid item xs={4}></Grid>
+              </Grid>
+
+              <Grid container>
+                <Grid item xs={3}></Grid>
+                <Grid item xs={3} textAlign="left">
+                  <label for="SKU">
+                    <span style={{color: "white"}}>SKU</span>
+                  </label><br/><br/>
+                  <label for="Name">
+                    <span style={{color: "white"}}>NAME</span>
+                  </label><br /><br />
+                  <label for="OOS">
+                    <span style={{color: "white"}}>
+                      INCLUDE OUT OF STOCK
+                    </span>
+                  </label><br /><br />
+                </Grid>
+                <Grid item xs={3}>
+                  <input type="text" id="SKU" label="SKU" variant="filled"/><br /><br />
+                  <input color="white" type="text" id="Name" label="Name" variant="filled"/><br /><br />
+                  <input type="checkbox" id="OOS" label="OOS" value="Yes" /><br /><br />
+                </Grid>
+                <Grid item xs={3}>
+                </Grid>
+
+              </Grid>
+              <Grid container>
+                <Grid item xs={3}></Grid>
+                <Grid item xs={3}></Grid>
+                <Grid item xs={3}>
+                  <BootstrapButton variant="contained" onClick={() => {clearSearch()}}>
+                    CLEAR
+                  </BootstrapButton>
+                </Grid>
+                <Grid item xs={3}>
+                  <BootstrapButton variant="contained" onClick={() => {submitSearch()}}>
+                    SUBMIT
+                  </BootstrapButton>
+                </Grid>
+              </Grid>
+
             </Paper>
           </Grid>
           <Grid item xs={12}>
