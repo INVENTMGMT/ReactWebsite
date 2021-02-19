@@ -1,12 +1,13 @@
 import './App.css';
-import React from 'react';
+import React, { useState } from 'react';
 import Button from '@material-ui/core/Button';
 import Grid from "@material-ui/core/Grid";
 import List from '@material-ui/core/List';
 import Paper from '@material-ui/core/Paper';
 import { withStyles, makeStyles } from '@material-ui/core/styles';
 import Items from './Items';
-
+import TextField from '@material-ui/core/TextField';
+import SearchBox from './SearchBox';
 
 
 const useStyles = makeStyles((theme) => ({
@@ -82,6 +83,9 @@ const BootstrapButton = withStyles({
 
 function App() {
 
+  const [items, setItems] = useState([1,2,3]);
+
+
   const clearSearch = () => {
     document.getElementById("SKU").value = "";
     document.getElementById("Name").value = "";
@@ -97,6 +101,7 @@ function App() {
       'Name: ' + name + '\n' +
       'Inlc Out of Stock: ' + oos.checked
     );
+    setItems(["HERE", "ARE", "THE", "ITEMS"]);
  };
 
   const addProduct = () => {
@@ -123,7 +128,7 @@ function App() {
 
         <Grid item xs={12}>
           <Paper elevation={3} className={classes.paperTopBar}>
-
+          {/* should we turn this into a function? takes a list of the name and its onClick function */}
           <Grid container>
             <Grid item xs={3}>
               <BootstrapButton variant="contained" onClick={() => {addProduct()}}>
@@ -157,7 +162,7 @@ function App() {
           <Grid item xs={12}>
             <Paper elevation={3} className={classes.paperItems}>
               <List className={classes.list}>
-                <Items/>
+                <Items passedItems={items}/>
               </List>
             </Paper>
           </Grid>
@@ -166,56 +171,7 @@ function App() {
         <Grid container xs={4} spacing={5} alignItems="center">
           <Grid item xs={12}>
             <Paper elevation={3} className={classes.paperInfo}>
-
-              <Grid container>
-                <Grid item xs={4}></Grid>
-                <Grid item xs={4} alignItems="center">
-                  <span style={{color: "white"}}>
-                    SEARCH ITEMS
-                  </span><br /><br />
-                </Grid>
-                <Grid item xs={4}></Grid>
-              </Grid>
-
-              <Grid container>
-                <Grid item xs={3}></Grid>
-                <Grid item xs={3} textAlign="left">
-                  <label for="SKU">
-                    <span style={{color: "white"}}>SKU</span>
-                  </label><br/><br/>
-                  <label for="Name">
-                    <span style={{color: "white"}}>NAME</span>
-                  </label><br /><br />
-                  <label for="OOS">
-                    <span style={{color: "white"}}>
-                      INCLUDE OUT OF STOCK
-                    </span>
-                  </label><br /><br />
-                </Grid>
-                <Grid item xs={3}>
-                  <input type="text" id="SKU" label="SKU" variant="filled"/><br /><br />
-                  <input color="white" type="text" id="Name" label="Name" variant="filled"/><br /><br />
-                  <input type="checkbox" id="OOS" label="OOS" value="Yes" /><br /><br />
-                </Grid>
-                <Grid item xs={3}>
-                </Grid>
-
-              </Grid>
-              <Grid container>
-                <Grid item xs={3}></Grid>
-                <Grid item xs={3}></Grid>
-                <Grid item xs={3}>
-                  <BootstrapButton variant="contained" onClick={() => {clearSearch()}}>
-                    CLEAR
-                  </BootstrapButton>
-                </Grid>
-                <Grid item xs={3}>
-                  <BootstrapButton variant="contained" onClick={() => {submitSearch()}}>
-                    SUBMIT
-                  </BootstrapButton>
-                </Grid>
-              </Grid>
-
+              <SearchBox BootstrapButton={BootstrapButton} clearFunc={clearSearch} submitFunc={submitSearch}/>
             </Paper>
           </Grid>
           <Grid item xs={12}>

@@ -5,12 +5,14 @@ import ListItemText from '@material-ui/core/ListItemText';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import DirectionsWalkIcon from '@material-ui/icons/DirectionsWalk';
 
-function Items() {
+function Items(props) {
+    const { passedItems } = props;
     const items = [];
 
     const createListItem = (ItemName) => {
         
-        return <ListItem button onClick={() => console.log(ItemName)}>
+        return (
+        <ListItem button onClick={() => console.log(ItemName)}>
             <ListItemIcon>
                 <DirectionsWalkIcon/>
             </ListItemIcon>
@@ -18,13 +20,12 @@ function Items() {
                 {ItemName}
             </ListItemText>
         </ListItem>
+        )
     };
 
-
-    for (let i = 0; i < 20; i++) {
-        items.push(createListItem(i));
-    }
-
+    passedItems.forEach(element => {
+        items.push(createListItem(element));
+    });
 
     return (<>{items}</>)
 
