@@ -92,6 +92,7 @@ function App() {
   };
 
   const submitSearch = () => {
+    {/* This should probably be changed so we're not searching the document, but instead getting it from the input tags */}
     var sku = document.getElementById("SKU").value;
     var name = document.getElementById("Name").value;
     var oos = document.getElementById("OOS");
@@ -100,7 +101,7 @@ function App() {
       'Name: ' + name + '\n' +
       'Inlc Out of Stock: ' + oos.checked
     );
-    setItems(["HERE", "ARE", "THE", "ITEMS"]);
+    setItems(["HERE", "ARE", "THE", "ITEMS", name]);
  };
 
   const addProduct = () => {
@@ -169,7 +170,7 @@ function App() {
 
         <Grid container xs={4} spacing={5} alignItems="center">
           <Grid item xs={12}>
-            <Paper elevation={3} className={classes.paperInfo}>
+            <Paper elevation={3} className={classes.paperInfo}> {/* Top right blue box for searching related stuff */}
               <SearchBox BootstrapButton={BootstrapButton} clearFunc={clearSearch} submitFunc={submitSearch}/>
             </Paper>
           </Grid>
