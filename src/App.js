@@ -85,7 +85,6 @@ function App() {
 
   const [items, setItems] = useState([1,2,3]);
 
-
   const clearSearch = () => {
     document.getElementById("SKU").value = "";
     document.getElementById("Name").value = "";
@@ -128,7 +127,7 @@ function App() {
 
         <Grid item xs={12}>
           <Paper elevation={3} className={classes.paperTopBar}>
-          {/* should we turn this into a function? takes a list of the name and its onClick function */}
+          {/* should we turn this into a function? takes a list of the names and its respective onClick function */}
           <Grid container>
             <Grid item xs={3}>
               <BootstrapButton variant="contained" onClick={() => {addProduct()}}>

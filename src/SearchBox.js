@@ -6,7 +6,7 @@ function SearchBox(props) {
 
   return (
     <>
-      {/* Use these to describe what is happening and where */}
+      {/* Title grid */}
       <Grid container>
         <Grid item xs={4}></Grid>
         <Grid item xs={4} alignItems="center">
@@ -17,6 +17,7 @@ function SearchBox(props) {
         <Grid item xs={4}></Grid>
       </Grid>
 
+      {/* Grid for input about SKU, Name, and Out of Stock button */}
       <Grid container>
         <Grid item xs={3}></Grid>
         <Grid item xs={3} textAlign="left">
@@ -55,15 +56,15 @@ function SearchBox(props) {
         </Grid>
         <Grid item xs={3}></Grid>
       </Grid>
+
+      {/* Grid for Clear and Submit Buttons */}
       <Grid container>
         <Grid item xs={3}></Grid>
         <Grid item xs={3}></Grid>
         <Grid item xs={3}>
           <BootstrapButton
             variant="contained"
-            onClick={() => {
-              clearFunc();
-            }}
+            onClick={clearFunc}
           >
             CLEAR
           </BootstrapButton>
@@ -71,9 +72,7 @@ function SearchBox(props) {
         <Grid item xs={3}>
           <BootstrapButton
             variant="contained"
-            onClick={() => {
-              submitFunc();
-            }}
+            onClick={submitFunc}
           >
             SUBMIT
           </BootstrapButton>
