@@ -1,4 +1,5 @@
 import './App.css';
+import axios from 'axios';
 import React, { useState } from 'react';
 import Button from '@material-ui/core/Button';
 import Grid from "@material-ui/core/Grid";
@@ -6,8 +7,8 @@ import List from '@material-ui/core/List';
 import Paper from '@material-ui/core/Paper';
 import { withStyles, makeStyles } from '@material-ui/core/styles';
 import Items from './Items';
-import TextField from '@material-ui/core/TextField';
 import SearchBox from './SearchBox';
+import Popover from '@material-ui/core/Popover';
 
 
 const useStyles = makeStyles((theme) => ({
@@ -84,6 +85,7 @@ const BootstrapButton = withStyles({
 function App() {
 
   const [items, setItems] = useState([1,2,3]);
+  const [anchorEl, setAnchorEl] = React.useState(null);
 
   const clearSearch = () => {
     document.getElementById("SKU").value = "";
@@ -92,21 +94,36 @@ function App() {
   };
 
   const submitSearch = () => {
-    {/* This should probably be changed so we're not searching the document, but instead getting it from the input tags */}
+    /* This should probably be changed so we're not searching the document, but instead getting it from the input tags */
     var sku = document.getElementById("SKU").value;
     var name = document.getElementById("Name").value;
     var oos = document.getElementById("OOS");
+    setItems(["HERE", "ARE", "THE", "ITEMS", name]);
+    /* ENDPOINT FOR SEARCH FUNCTION */
+    axios.get('http://localhost:3000/endpoint')
+      .then( res => {
+        console.log(res);
+        const resItems = res.data.items;
+        setItems(resItems);
+      })
+
     alert(
       'SKU: ' + sku + '\n' +
       'Name: ' + name + '\n' +
       'Inlc Out of Stock: ' + oos.checked
     );
-    setItems(["HERE", "ARE", "THE", "ITEMS", name]);
  };
 
-  const addProduct = () => {
-    alert('ADD PRODUCT');
+  const open = Boolean(anchorEl);
+  const id = open ? 'ADDPOPOVER' : undefined;
+  const closePopover = () => {setAnchorEl(null);};
+  const addProduct = (event) => {
+    /* This should be called from a popover view that asks for item name and price  */
   };
+
+  const appearPopover = (event) => {
+    setAnchorEl(event.currentTarget);
+  }
 
   const shipments = () => {
     alert('SHIPMENTS');
@@ -131,9 +148,24 @@ function App() {
           {/* should we turn this into a function? takes a list of the names and its respective onClick function */}
           <Grid container>
             <Grid item xs={3}>
-              <BootstrapButton variant="contained" onClick={() => {addProduct()}}>
+              <BootstrapButton aria-describedby={id} variant="contained" onClick={appearPopover}>
                 ADD PRODUCT
               </BootstrapButton>
+              <Popover
+                id={id}
+                open={open}
+                anchorEl={anchorEl}
+                onClose={closePopover}
+                anchorOrigin={{
+                  vertical: 'bottom',
+                  horizontal: 'center',
+                }}
+                transformOrigin={{
+                  vertical: 'top',
+                  horizontal: 'center',
+                }}>
+                PRODUCT
+              </Popover>
             </Grid>
 
             <Grid item xs={3}>
