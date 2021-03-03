@@ -9,6 +9,10 @@ import { withStyles, makeStyles } from '@material-ui/core/styles';
 import Items from './Items';
 import SearchBox from './SearchBox';
 import Popover from '@material-ui/core/Popover';
+import Header from './Header'
+import Content from './Content'
+import Navigator from './Navigator'
+import Paperbase from './Paperbase'
 
 
 const useStyles = makeStyles((theme) => ({
@@ -138,83 +142,11 @@ function App() {
   };
 
   const classes = useStyles();
+
   return (
-    <body style={{background: "#EDFCFF"}}>
-    <div className={classes.root}>
-      <Grid container spacing={5}>
-
-        <Grid item xs={12}>
-          <Paper elevation={3} className={classes.paperTopBar}>
-          {/* should we turn this into a function? takes a list of the names and its respective onClick function */}
-          <Grid container>
-            <Grid item xs={3}>
-              <BootstrapButton aria-describedby={id} variant="contained" onClick={appearPopover}>
-                ADD PRODUCT
-              </BootstrapButton>
-              <Popover
-                id={id}
-                open={open}
-                anchorEl={anchorEl}
-                onClose={closePopover}
-                anchorOrigin={{
-                  vertical: 'bottom',
-                  horizontal: 'center',
-                }}
-                transformOrigin={{
-                  vertical: 'top',
-                  horizontal: 'center',
-                }}>
-                PRODUCT
-              </Popover>
-            </Grid>
-
-            <Grid item xs={3}>
-              <BootstrapButton variant="contained" onClick={() => {shipments()}}>
-                SHIPMENTS
-              </BootstrapButton>
-            </Grid>
-
-            <Grid item xs={3}>
-              <BootstrapButton variant="contained" onClick={() => {statistics()}}>
-                STATISTICS
-              </BootstrapButton>
-            </Grid>
-
-            <Grid item xs={3}>
-              <BootstrapButton variant="contained" onClick={() => {account()}}>
-                ACCOUNT
-              </BootstrapButton>
-            </Grid>
-          </Grid>
-
-          </Paper>
-        </Grid>
-
-        <Grid item xs={8} spacing={5} alignItems="center">
-          <Grid item xs={12}>
-            <Paper elevation={3} className={classes.paperItems}>
-              <List className={classes.list}>
-                <Items passedItems={items}/>
-              </List>
-            </Paper>
-          </Grid>
-        </Grid>
-
-        <Grid container xs={4} spacing={5} alignItems="center">
-          <Grid item xs={12}>
-            <Paper elevation={3} className={classes.paperInfo}> {/* Top right blue box for searching related stuff */}
-              <SearchBox BootstrapButton={BootstrapButton} clearFunc={clearSearch} submitFunc={submitSearch}/>
-            </Paper>
-          </Grid>
-          <Grid item xs={12}>
-            <Paper elevation={3} className={classes.paperInfo}> {/* This is the blue box on the bottom right*/}
-            </Paper>
-          </Grid>
-        </Grid>
-
-      </Grid>
+    <div>
+      <Paperbase />
     </div>
-    </body>
   );
 }
 
