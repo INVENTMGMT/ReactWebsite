@@ -8,7 +8,6 @@ import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
-import HomeIcon from '@material-ui/icons/Home';
 import PeopleIcon from '@material-ui/icons/People';
 import DnsRoundedIcon from '@material-ui/icons/DnsRounded';
 import PermMediaOutlinedIcon from '@material-ui/icons/PhotoSizeSelectActual';
@@ -60,32 +59,14 @@ const styles = (theme) => ({
 
 function Navigator(props) {
 
-  const checkViews = () => {
-  };
-
-  const searchView = () => {
-    setSearchView(true);
-    setItemView(false);
-    checkViews();
-    setSearchView(true);
-  };
-
-  const addView = () => {
-    setSearchView(false);
-    setItemView(true);
-    checkViews();
-    setSearchView(false);
-  };
-
-  const [itemSearchView, setSearchView] = React.useState(true);
-  const [addItemView, setItemView] = React.useState(false);
-
+  const { classes, searchFunc, addFunc, ...other } = props;
+  
   const categories = [
     {
       id: 'Home',
       children: [
-        { id: 'Search Items', icon: <PeopleIcon />, clickFunc: searchView },
-        { id: 'Add Items', icon: <DnsRoundedIcon />, clickFunc: addView },
+        { id: 'Search Items', icon: <PeopleIcon />, clickFunc: searchFunc },
+        { id: 'Add Items', icon: <DnsRoundedIcon />, clickFunc: addFunc },
         { id: 'Statistics', icon: <PermMediaOutlinedIcon />},
         { id: 'Shipping', icon: <PublicIcon /> },
         { id: 'Account', icon: <SettingsEthernetIcon /> },
@@ -93,7 +74,6 @@ function Navigator(props) {
     }
   ];
 
-  const { classes, ...other } = props;
 
   return (
     <Drawer variant="permanent" {...other}>
@@ -116,7 +96,7 @@ function Navigator(props) {
               <ListItem
                 key={childId}
                 button
-                onClick = {() => clickFunc()}
+                onClick = {clickFunc}
                 className={clsx(classes.item)}
               >
                 <ListItemIcon className={classes.itemIcon}>{icon}</ListItemIcon>

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { createMuiTheme, ThemeProvider, withStyles } from '@material-ui/core/styles';
 import CssBaseline from '@material-ui/core/CssBaseline';
@@ -149,7 +149,17 @@ const styles = {
 
 function Paperbase(props) {
   const { classes } = props;
-  const [mobileOpen, setMobileOpen] = React.useState(false);
+  const [items, setItems] = useState([1, 2, 3]);
+  const [mobileOpen, setMobileOpen] = useState(false);
+  const [content, setContent] = useState(<Content id="searchItemView" items={items}/>);
+
+  const addItems = () => {
+    setContent(<AddItem id="addItemView"/>);
+  };
+  
+  const searchItems = () => {
+    setContent(<Content id="contentView" items={items}/>);
+  };
 
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
@@ -169,14 +179,14 @@ function Paperbase(props) {
             />
           </Hidden>
           <Hidden xsDown implementation="css">
-            <Navigator PaperProps={{ style: { width: drawerWidth } }} />
+            <Navigator PaperProps={{ style: { width: drawerWidth } }} 
+              searchFunc={searchItems}
+              addFunc={addItems}/>
           </Hidden>
         </nav>
         <div className={classes.app}>
           <main className={classes.main}>
-            <Content id = "searchItmView"/>
-            <br></br>
-            <AddItem id = "addItmView"/>
+            {content}
           </main>
         </div>
       </div>

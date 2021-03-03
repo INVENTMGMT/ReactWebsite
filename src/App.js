@@ -2,16 +2,7 @@ import './App.css';
 import axios from 'axios';
 import React, { useState } from 'react';
 import Button from '@material-ui/core/Button';
-import Grid from "@material-ui/core/Grid";
-import List from '@material-ui/core/List';
-import Paper from '@material-ui/core/Paper';
 import { withStyles, makeStyles } from '@material-ui/core/styles';
-import Items from './Items';
-import SearchBox from './SearchBox';
-import Popover from '@material-ui/core/Popover';
-import Header from './Header'
-import Content from './Content'
-import Navigator from './Navigator'
 import Paperbase from './Paperbase'
 
 

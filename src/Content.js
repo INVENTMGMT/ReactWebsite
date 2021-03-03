@@ -10,7 +10,7 @@ import TextField from '@material-ui/core/TextField';
 import FormatListNumberedIcon from '@material-ui/icons/FormatListNumbered';
 import { withStyles } from '@material-ui/core/styles';
 import ContactsIcon from '@material-ui/icons/Contacts';
-
+import Items from './Items';
 import FormControl from '@material-ui/core/FormControl';
 import FormGroup from '@material-ui/core/FormGroup';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
@@ -42,7 +42,7 @@ const styles = (theme) => ({
 
 
 function Content(props) {
-  const { classes } = props;
+  const { classes, items } = props;
 
   const [state, setState] = React.useState({
     oos: false,
@@ -134,7 +134,7 @@ function Content(props) {
       </AppBar>
       <div className={classes.contentWrapper}>
         <Typography color="textSecondary" align="center">
-          ITEMS SHOW HERE
+          <Items passedItems={items} />
         </Typography>
       </div>
     </Paper>
