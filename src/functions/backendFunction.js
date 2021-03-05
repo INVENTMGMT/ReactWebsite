@@ -2,7 +2,7 @@
 // functions. These must be done by passing a query string via a post request to the backend endpoint.
 
 import axios from 'axios'
-const endPoint = 'http://localhost:3000/dev/graphql';
+const endPoint = 'http://localhost:5000/dev/graphql';
 
 /*
 USAGE:
@@ -77,7 +77,7 @@ function backendFunction(functionName, params) {
             // Formatting params
             let { id, name, price, quantity} = params;
             if (!id || !name || !price || !quantity) {
-                throw "Incorrectly formatted params";
+                throw Error("Incorrectly formatted params - AddItem");
             }
 
             // Adding function header to query string & formatting it properly
@@ -103,7 +103,7 @@ function backendFunction(functionName, params) {
             // Formatting params
             let { name } = params;
             if (!name) {
-                throw "Incorrectly formatted params";
+                throw Error("Incorrectly formatted params - getByName");
             }
 
             // Adding function header to query string & formatting it properly
@@ -119,7 +119,7 @@ function backendFunction(functionName, params) {
             // Formatting params
             let { id } = params;
             if (!id) {
-                throw "Incorrectly formatted params";
+                throw Error("Incorrectly formatted params - getByID");
             }
 
             // Adding function header to query string & formatting it properly
@@ -135,7 +135,7 @@ function backendFunction(functionName, params) {
             // Formatting params
             let { id } = params;
             if (!id) {
-                throw "Incorrectly formatted params";
+                throw Error("Incorrectly formatted params - deleteItem");
             }
 
             // Adding function header to query string & formatting it properly
@@ -147,7 +147,7 @@ function backendFunction(functionName, params) {
         }
 
         default:
-            throw `Function Name "${functionName}" not found - Make sure function name is spelled correctly.`;
+            throw Error(`Function Name "${functionName}" not found - Make sure function name is spelled correctly.`);
     }
 
     // Finalizing Query Object with the Query String as its data, which specifies the 
@@ -167,8 +167,8 @@ function backendFunction(functionName, params) {
 }
 
 // let resp = await backendFunction("addItem", {id: "a", name:"pep", quantity: 3, price:2})
-let resp = await backendFunction("getAllItems", {id: "a", name:"jackaie", quantity: 3, price:4})
-console.log(resp)
+//let resp = await backendFunction("getAllItems", {id: "a", name:"jackaie", quantity: 3, price:4})
+//console.log(resp)
 
 export default backendFunction;
 

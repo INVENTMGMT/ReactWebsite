@@ -42,7 +42,7 @@ const styles = (theme) => ({
 
 
 function Content(props) {
-  const { classes, items } = props;
+  const { classes, items, handleSearch } = props;
 
   const [state, setState] = React.useState({
     oos: false,
@@ -59,10 +59,6 @@ function Content(props) {
     setName('');
     setSKU('');
     setState(false);
-  };
-
-  const searchFields = () => {
-    alert (contentSKU + " " + contentName + " " + oos);
   };
 
   const { oos } = state;
@@ -120,7 +116,7 @@ function Content(props) {
             <Grid item>
               <Button 
                 variant="contained" 
-                onClick = {() => searchFields()} 
+                onClick = {() => {handleSearch(contentName, contentSKU, state);}} 
                 color="primary" 
                 className={classes.addUser}>
                 SEARCH

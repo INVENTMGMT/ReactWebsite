@@ -1,4 +1,4 @@
-import { render, screen } from '@testing-library/react';
+import { render } from '@testing-library/react';
 import Items from './Items';
 
 test('should return an empty Items list', () => {
@@ -7,7 +7,7 @@ test('should return an empty Items list', () => {
     expect(listOfItems.innerHTML).toBe(undefined)
 });
 
-/*test('should return 1 item with the name flowerpot', () => {
+/*test('should return 1 item with the name flowerpot', () => { /* This needs Material-UI testing *//*
     const flowerpot = ["flowerpot"];
     const items = render(<Items passedItems={[flowerpot]}/>);
     const listOfItems = items.getByRole('button');

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { createMuiTheme, ThemeProvider, withStyles } from '@material-ui/core/styles';
 import CssBaseline from '@material-ui/core/CssBaseline';
@@ -6,6 +6,7 @@ import Hidden from '@material-ui/core/Hidden';
 import Navigator from './Navigator';
 import Content from './Content';
 import AddItem from './AddItem';
+import backendFunction from './functions/backendFunction';
 
 
 let theme = createMuiTheme({
@@ -151,15 +152,26 @@ function Paperbase(props) {
   const { classes } = props;
   const [items, setItems] = useState([1, 2, 3]);
   const [mobileOpen, setMobileOpen] = useState(false);
-  const [content, setContent] = useState(<Content id="searchItemView" items={items}/>);
+  const handleSearch = (name, sku, checkbox) => {
+    /* make search query and query the backend */
+    let resp = backendFunction("getByName", {name});
+    console.log(resp);
+    setItems([...items, resp]);
+  };
+  const [content, setContent] = useState(<Content id="searchItemView" items={items} handleSearch={handleSearch}/>);
+
+  const handleAdd = (itemName, itemPrice, itemQuantity) => {
+    backendFunction("addItem", {id: 0, name: itemName, price: itemPrice, quantity: itemQuantity})
+  };
 
   const addItems = () => {
-    setContent(<AddItem id="addItemView"/>);
+    setContent(<AddItem id="addItemView" handleAdd={handleAdd}/>);
   };
   
   const searchItems = () => {
-    setContent(<Content id="contentView" items={items}/>);
+    setContent(<Content id="contentView" items={items} handleSearch={handleSearch}/>);
   };
+
 
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);

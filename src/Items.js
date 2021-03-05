@@ -23,7 +23,7 @@ function Items(props) {
         )
     };
 
-    if (passedItems != undefined) {
+    if (passedItems !== undefined) {
         passedItems.forEach(element => {
             items.push(createListItem(element));
         });
