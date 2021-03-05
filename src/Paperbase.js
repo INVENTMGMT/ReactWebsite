@@ -5,7 +5,7 @@ import CssBaseline from '@material-ui/core/CssBaseline';
 import Hidden from '@material-ui/core/Hidden';
 import Navigator from './Navigator';
 import Content from './Content';
-import AddItem from './AddItem';
+import AddItemView from './AddItemView';
 import backendFunction from './functions/backendFunction';
 
 
@@ -150,13 +150,13 @@ const styles = {
 
 function Paperbase(props) {
   const { classes } = props;
-  const [items, setItems] = useState([1, 2, 3]);
+  const [items, setItems] = useState(undefined);
   const [mobileOpen, setMobileOpen] = useState(false);
   const handleSearch = (name, sku, checkbox) => {
     /* make search query and query the backend */
     let resp = backendFunction("getByName", {name});
     console.log(resp);
-    setItems([...items, resp]);
+    setItems(resp);
   };
   const [content, setContent] = useState(<Content id="searchItemView" items={items} handleSearch={handleSearch}/>);
 
@@ -165,7 +165,7 @@ function Paperbase(props) {
   };
 
   const addItems = () => {
-    setContent(<AddItem id="addItemView" handleAdd={handleAdd}/>);
+    setContent(<AddItemView id="addItemView" handleAdd={handleAdd}/>);
   };
   
   const searchItems = () => {

@@ -36,7 +36,7 @@ const styles = (theme) => ({
 });
 
 
-function AddItem(props) {
+function AddItemView(props) {
   const { classes } = props;
 
   const [state, setState] = React.useState({
@@ -132,8 +132,8 @@ function AddItem(props) {
   );
 }
 
-AddItem.propTypes = {
+AddItemView.propTypes = {
   classes: PropTypes.object.isRequired,
 };
 
-export default withStyles(styles)(AddItem);
+export default withStyles(styles)(AddItemView);

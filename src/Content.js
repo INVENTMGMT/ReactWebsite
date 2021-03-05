@@ -48,16 +48,16 @@ function Content(props) {
     oos: false,
   });
 
-  const [contentName, setName] = React.useState('');
-  const [contentSKU, setSKU] = React.useState('');
+  const [itemName, setItemName] = React.useState('');
+  const [itemSKU, setItemSKU] = React.useState('');
 
   const handleChange = (event) => {
     setState({ ...state, [event.target.name]: event.target.checked });
   };
 
   const clearFields = () => {
-    setName('');
-    setSKU('');
+    setItemName('');
+    setItemSKU('');
     setState(false);
   };
 
@@ -80,8 +80,8 @@ function Content(props) {
                   disableUnderline: true,
                   className: classes.searchInput,
                 }}
-                value = {contentName}
-                onChange = {(event) => {setName(event.target.value)}}
+                value = {itemName}
+                onChange = {(event) => {setItemName(event.target.value)}}
               />
             </Grid>
             <Grid>
@@ -96,8 +96,8 @@ function Content(props) {
                   disableUnderline: true,
                   className: classes.searchInput,
                 }}
-                value = {contentSKU}
-                onChange = {(event) => {setSKU(event.target.value)}}
+                value = {itemSKU}
+                onChange = {(event) => {setItemSKU(event.target.value)}}
               />
             </Grid>
             <Grid item xs>
@@ -116,7 +116,7 @@ function Content(props) {
             <Grid item>
               <Button 
                 variant="contained" 
-                onClick = {() => {handleSearch(contentName, contentSKU, state);}} 
+                onClick = {() => {handleSearch(itemName, itemSKU, state);}} 
                 color="primary" 
                 className={classes.addUser}>
                 SEARCH

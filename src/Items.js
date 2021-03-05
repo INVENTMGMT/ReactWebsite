@@ -27,6 +27,8 @@ function Items(props) {
         passedItems.forEach(element => {
             items.push(createListItem(element));
         });
+    } else {
+        items.push("No items matched your query");
     }
 
     return (<>{items}</>)
