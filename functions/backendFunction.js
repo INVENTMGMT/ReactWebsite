@@ -6,35 +6,44 @@ const endPoint = 'http://localhost:3000/dev/graphql';
 
 /*
 USAGE:
-
+    PARAMETERS:
     - functionName: the name of the desired function you want to call.
-        Available Functions:
-            
+        Options:  
         - addItem: Function to create items and store them into backend
             Params:
-                - Item: Object of the following form:
+                - Object: Object representing an Item of the following form:
                 { id: String, name: String, price: Int, quantity: Int }
+            Returns:
+                - Object: Object representing the added item with id, name, price, and quantity values
             
         - getAllItems: Function that will get all items that are in the database
             Params:
                 - No parameters
+            Returns:
+                - Array of objects of each item in the list
 
         - getByName: Function to search through Items via its name
             Params:
                 - Name: String
+            Returns:
+                - Object: Object representing the desired Item
 
         - getByID: Function to search through Items via its ID
             Params:
                 - id: String
+            Returns:
+                - Object: Object representing the desired Item
 
         - deleteItem: Function to delete an item with a matching ID
             Params:
                 - id: String
+            Returns:
+                - null: This needs to be updated but it is returning null at the moment
     
     - params: Object representing the parameters required for each function. Below represents the
     contents of each parameter object depending on the desired function call. 
         - addItem Params: 
-            - Item: Object of the following form:
+            - Object: Object representing an Item of the following form:
             { id: String, name: String, price: Int, quantity: Int }
             
         - getAllItems Params:
@@ -52,28 +61,28 @@ USAGE:
 function backendFunction(functionName, params) {
 
     // Handling the issue if params is not passed in
-    params = params || 0
+    params = params || 0;
 
     // Creating the start of the query Object, which will be passed into the backend via a post request
-    let queryObj = {"query": null}
-    let queryStr = "{ "
+    let queryObj = {"query": null};
+    let queryStr = "{ ";
 
     // Creating the string at the end of each GraphQL Post request, which makes GraphQL happy
-    var strEnd = ` {id name price quantity} }`
+    var strEnd = ` {id name price quantity} }`;
 
     // Switch statement to determine what function the query string will be for
     switch(String(functionName)) {
         case "addItem":
         {
             // Formatting params
-            let { id, name, price, quantity} = params
+            let { id, name, price, quantity} = params;
             if (!id || !name || !price || !quantity) {
-                throw "Incorrectly formatted params"
+                throw "Incorrectly formatted params";
             }
 
             // Adding function header to query string & formatting it properly
-            queryStr += `addItem(id:"${id}", name:"${name}", price:${price}, quantity:${quantity})`
-            queryStr += strEnd
+            queryStr += `addItem(id:"${id}", name:"${name}", price:${price}, quantity:${quantity})`;
+            queryStr += strEnd;
             
             // console.log(queryStr)
             break;
@@ -82,8 +91,8 @@ function backendFunction(functionName, params) {
         case "getAllItems":
         {   
             // Adding function header to query string & formatting it properly
-            queryStr += `getAllItems `
-            queryStr += strEnd
+            queryStr += `getAllItems `;
+            queryStr += strEnd;
             
             // console.log(queryStr)
             break;
@@ -92,14 +101,14 @@ function backendFunction(functionName, params) {
         case "getByName":
         {
             // Formatting params
-            let { name } = params
+            let { name } = params;
             if (!name) {
-                throw "Incorrectly formatted params"
+                throw "Incorrectly formatted params";
             }
 
             // Adding function header to query string & formatting it properly
-            queryStr += `getByName(name:"${name}")`
-            queryStr += strEnd
+            queryStr += `getByName(name:"${name}")`;
+            queryStr += strEnd;
             
             // console.log(queryStr)
             break;
@@ -108,14 +117,14 @@ function backendFunction(functionName, params) {
         case "getByID":
         {
             // Formatting params
-            let { id } = params
+            let { id } = params;
             if (!id) {
-                throw "Incorrectly formatted params"
+                throw "Incorrectly formatted params";
             }
 
             // Adding function header to query string & formatting it properly
-            queryStr += `getByID(id:"${id}")`
-            queryStr += strEnd
+            queryStr += `getByID(id:"${id}")`;
+            queryStr += strEnd;
             
             // console.log(queryStr)
             break;
@@ -124,60 +133,43 @@ function backendFunction(functionName, params) {
         case "deleteItem":
         {
             // Formatting params
-            let { id } = params
+            let { id } = params;
             if (!id) {
-                throw "Incorrectly formatted params"
+                throw "Incorrectly formatted params";
             }
 
             // Adding function header to query string & formatting it properly
-            queryStr += `deleteItem(id:"${id}")`
-            queryStr += strEnd
+            queryStr += `deleteItem(id:"${id}")`;
+            queryStr += strEnd;
             
             // console.log(queryStr)
             break;
         }
 
         default:
-            throw `Function Name "${functionName}" not found - Make sure function name is spelled correctly.`
+            throw `Function Name "${functionName}" not found - Make sure function name is spelled correctly.`;
     }
 
     // Finalizing Query Object with the Query String as its data, which specifies the 
-    queryObj["query"] = queryStr
+    queryObj["query"] = queryStr;
     
     // Making POST request with query string
     return axios.post(endPoint, queryObj)
         .then((response) => {
-            // console.log(`\nThis is response.data: ${response.data}\n and: ${JSON.stringify(response.data)}\n\n `)
-            return response.data["data"][functionName]
-        }, (error) => {
-            console.error(error)
-        })
-        .then((respObject) => {
-            // console.log(respObject);
-            // console.log(`This is resp: ${respObject}\n and: ${JSON.stringify(respObject)}`)
-            return respObject;
+            // Parsing the response JSON to what the desired format
+            return response.data["data"][functionName];
         })
         .catch((error) => {
-            console.error(error)
+            console.error(error);
         })
 
     
 }
 
-var testParams;
-var i;
-// for ( i=0; i < 5; i++)
-// {
-//     testParams = { id: `succ${i}`, name:`succ${i}`, price:3, quantity:4 }
-//     let resp = await backendFunction("getAllItems", testParams)
-//     console.log(resp)
-// }
-
-i=3
-testParams = { id: `succ${i}`, name:`succ${i}`, price:3, quantity:4 }
-let resp = await backendFunction("getByName", testParams)
+// let resp = await backendFunction("addItem", {id: "a", name:"pep", quantity: 3, price:2})
+let resp = await backendFunction("getAllItems", {id: "a", name:"jackaie", quantity: 3, price:4})
 console.log(resp)
 
-export default backendFunction
+export default backendFunction;
 
 
