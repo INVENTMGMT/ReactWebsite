@@ -155,24 +155,12 @@ function backendFunction(functionName, params) {
 
     // Making POST request with query string
     return axios.post(endPoint, queryObj)
-<<<<<<< HEAD
-=======
         .then((response) => {
-            // Parsing the response JSON to what the desired format
-
-            // This handles the case for deleteItem where you want to return the response code
-            if (functionName == "deleteItem")
-            {
-                return response.status
-            }
-
-            // All other functions return data
-            return response.data["data"][functionName];
+            return response;
         })
         .catch((error) => {
             console.error(error);
         })
->>>>>>> c72bb5960f1742b798a376aed4f224f19adceefa
 
     
 }
