@@ -9,10 +9,10 @@ function Items(props) {
     const { passedItems } = props;
     const items = [];
 
-    const createListItem = (ItemName) => {
+    const createListItem = (id, ItemName) => {
 
         return (
-        <ListItem button onClick={() => console.log(ItemName)}>
+        <ListItem key={id} button onClick={() => console.log(ItemName)}>
             <ListItemIcon>
                 <DirectionsWalkIcon/>
             </ListItemIcon>
@@ -23,9 +23,9 @@ function Items(props) {
         )
     };
 
-    if (passedItems !== undefined) {
-        passedItems.forEach(element => {
-            items.push(createListItem(element));
+    if (passedItems.length > 0) {
+        passedItems.forEach(item => {
+            items.push(createListItem(item["id"], item["name"]));
         });
     } else {
         items.push("No items matched your query");

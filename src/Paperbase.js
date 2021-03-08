@@ -150,13 +150,12 @@ const styles = {
 
 function Paperbase(props) {
   const { classes } = props;
-  const [items, setItems] = useState(undefined);
+  const [items, setItems] = useState([]);
   const [mobileOpen, setMobileOpen] = useState(false);
   const handleSearch = (name, sku, checkbox) => {
     /* make search query and query the backend */
-    let resp = backendFunction("getByName", {name});
-    console.log(resp);
-    setItems(resp);
+    backendFunction("getByName", {name}).then(resp =>
+      setItems(resp));
   };
   const [content, setContent] = useState(<Content id="searchItemView" items={items} handleSearch={handleSearch}/>);
 

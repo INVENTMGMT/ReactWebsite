@@ -2,7 +2,7 @@
 // functions. These must be done by passing a query string via a post request to the backend endpoint.
 
 import axios from 'axios'
-const endPoint = 'http://localhost:5000/dev/graphql';
+const endPoint = 'http://localhost:3000/dev/graphql';
 
 /*
 USAGE:
@@ -167,8 +167,8 @@ function backendFunction(functionName, params) {
 }
 
 // let resp = await backendFunction("addItem", {id: "a", name:"pep", quantity: 3, price:2})
-//let resp = await backendFunction("getAllItems", {id: "a", name:"jackaie", quantity: 3, price:4})
-//console.log(resp)
+//backendFunction("getAllItems", {id: "a", name:"jackaie", quantity: 3, price:4})
+//.then(resp => console.log(resp));
 
 export default backendFunction;
 
