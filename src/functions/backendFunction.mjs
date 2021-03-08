@@ -152,16 +152,35 @@ function backendFunction(functionName, params) {
 
     // Finalizing Query Object with the Query String as its data, which specifies the 
     queryObj["query"] = queryStr;
-    
+
     // Making POST request with query string
     return axios.post(endPoint, queryObj)
+<<<<<<< HEAD
+=======
+        .then((response) => {
+            // Parsing the response JSON to what the desired format
+
+            // This handles the case for deleteItem where you want to return the response code
+            if (functionName == "deleteItem")
+            {
+                return response.status
+            }
+
+            // All other functions return data
+            return response.data["data"][functionName];
+        })
+        .catch((error) => {
+            console.error(error);
+        })
+>>>>>>> c72bb5960f1742b798a376aed4f224f19adceefa
 
     
 }
 
 // let resp = await backendFunction("addItem", {id: "a", name:"pep", quantity: 3, price:2})
-//backendFunction("getAllItems", {id: "a", name:"jackaie", quantity: 3, price:4})
-//.then(resp => console.log(resp));
+// resp = await backendFunction("getAllItems", {id: "a", name:"jackaie", quantity: 3, price:4})
+// resp = await backendFunction("deleteItem", {id: "a", name:"jackaie", quantity: 3, price:4})
+// console.log(resp)
 
 export default backendFunction;
 
