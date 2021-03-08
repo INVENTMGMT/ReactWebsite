@@ -67,8 +67,14 @@ function Content(props) {
 
   const handleSearch = (name, sku, checkbox) => {
     /* make search query and query the backend */
-    backendFunction("getByName", {name}).then(resp =>
-      setItems(resp.data["data"]["getByName"]));
+    try {
+      backendFunction("getByName", {name})
+        .then(resp =>
+          setItems(resp.data["data"]["getByName"]))
+    } catch (error) {
+      alert("Error: Missing Name parameter");
+      console.error(error.name + ": " + error.message);
+    }
   };
 
   const { oos } = state;

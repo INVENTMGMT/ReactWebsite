@@ -155,12 +155,6 @@ function backendFunction(functionName, params) {
 
     // Making POST request with query string
     return axios.post(endPoint, queryObj)
-        .then((response) => {
-            return response;
-        })
-        .catch((error) => {
-            console.error(error);
-        })
 
     
 }
