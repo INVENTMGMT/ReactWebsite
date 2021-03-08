@@ -11,6 +11,8 @@ import FormatListNumberedIcon from '@material-ui/icons/FormatListNumbered';
 import { withStyles } from '@material-ui/core/styles';
 import ContactsIcon from '@material-ui/icons/Contacts';
 import MonetizationOnIcon from '@material-ui/icons/MonetizationOn';
+import backendFunction from './functions/backendFunction';
+import Items from './Items';
 
 
 const styles = (theme) => ({
@@ -39,25 +41,30 @@ const styles = (theme) => ({
 function AddItemView(props) {
   const { classes } = props;
 
-  const [state, setState] = React.useState({
-    oos: false,
-  });
-
   const clearFields = () => {
     setName('');
     setPrice('');
     setQt('');
   }
 
-  const addFields = () => {
-    alert(addName + " " + addPrice + " " + addQt);
-  }
+  const [addedItems, addItem] = React.useState([]);
+
+  const handleAdd = (itemName, itemPrice, itemQuantity) => {
+    backendFunction("addItem", {
+      id: '0',
+      name: itemName,
+      price: itemPrice,
+      quantity: itemQuantity,
+    })
+      .then(resp => {
+        console.log(resp.data["data"]["addItem"]);
+        addItem([...addedItems, resp.data["data"]["addItem"]]);
+      });
+  };
 
   const [addName, setName] = React.useState('');
   const [addPrice, setPrice] = React.useState('');
   const [addQt, setQt] = React.useState('');
-
-  const { oos } = state;
 
   return (
     <Paper className={classes.paper}>
@@ -111,7 +118,7 @@ function AddItemView(props) {
             </Grid>
             <Grid item xs></Grid>
             <Grid item>
-              <Button variant="contained" onClick = {() => addFields()}
+              <Button variant="contained" onClick = {() => handleAdd(addName, addPrice, addQt)}
               color="primary" className={classes.addUser}>
                 ADD ITEM
               </Button>
@@ -125,7 +132,7 @@ function AddItemView(props) {
       </AppBar>
       <div className={classes.contentWrapper}>
         <Typography color="textSecondary" align="center">
-          ITEMS SHOW HERE
+          <Items passedItems={addedItems} />
         </Typography>
       </div>
     </Paper>

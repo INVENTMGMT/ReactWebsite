@@ -1,20 +1,19 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import clsx from 'clsx';
-import { withStyles } from '@material-ui/core/styles';
-import Divider from '@material-ui/core/Divider';
-import Drawer from '@material-ui/core/Drawer';
-import List from '@material-ui/core/List';
-import ListItem from '@material-ui/core/ListItem';
-import ListItemIcon from '@material-ui/core/ListItemIcon';
-import ListItemText from '@material-ui/core/ListItemText';
-import PeopleIcon from '@material-ui/icons/People';
-import DnsRoundedIcon from '@material-ui/icons/DnsRounded';
-import PermMediaOutlinedIcon from '@material-ui/icons/PhotoSizeSelectActual';
-import PublicIcon from '@material-ui/icons/Public';
-import SettingsEthernetIcon from '@material-ui/icons/SettingsEthernet';
-
-
+import React from "react";
+import PropTypes from "prop-types";
+import clsx from "clsx";
+import { withStyles } from "@material-ui/core/styles";
+import Divider from "@material-ui/core/Divider";
+import Drawer from "@material-ui/core/Drawer";
+import List from "@material-ui/core/List";
+import ListItem from "@material-ui/core/ListItem";
+import ListItemIcon from "@material-ui/core/ListItemIcon";
+import ListItemText from "@material-ui/core/ListItemText";
+import PeopleIcon from "@material-ui/icons/People";
+import DnsRoundedIcon from "@material-ui/icons/DnsRounded";
+import PermMediaOutlinedIcon from "@material-ui/icons/PhotoSizeSelectActual";
+import PublicIcon from "@material-ui/icons/Public";
+import SettingsEthernetIcon from "@material-ui/icons/SettingsEthernet";
+import { withRouter, Link } from "react-router-dom";
 
 const styles = (theme) => ({
   categoryHeader: {
@@ -27,14 +26,14 @@ const styles = (theme) => ({
   item: {
     paddingTop: 1,
     paddingBottom: 1,
-    color: 'rgba(255, 255, 255, 0.7)',
-    '&:hover,&:focus': {
-      backgroundColor: 'rgba(255, 255, 255, 0.08)',
+    color: "rgba(255, 255, 255, 0.7)",
+    "&:hover,&:focus": {
+      backgroundColor: "rgba(255, 255, 255, 0.08)",
     },
   },
   itemCategory: {
-    backgroundColor: '#232f3e',
-    boxShadow: '0 -1px 0 #404854 inset',
+    backgroundColor: "#232f3e",
+    boxShadow: "0 -1px 0 #404854 inset",
     paddingTop: theme.spacing(2),
     paddingBottom: theme.spacing(2),
   },
@@ -43,13 +42,13 @@ const styles = (theme) => ({
     color: theme.palette.common.white,
   },
   itemActiveItem: {
-    color: '#4fc3f7',
+    color: "#4fc3f7",
   },
   itemPrimary: {
-    fontSize: 'inherit',
+    fontSize: "inherit",
   },
   itemIcon: {
-    minWidth: 'auto',
+    minWidth: "auto",
     marginRight: theme.spacing(2),
   },
   divider: {
@@ -58,27 +57,27 @@ const styles = (theme) => ({
 });
 
 function Navigator(props) {
+  const { classes, ...other } = props;
 
-  const { classes, searchFunc, addFunc, ...other } = props;
-  
   const categories = [
     {
-      id: 'Home',
+      id: "Home",
       children: [
-        { id: 'Search Items', icon: <PeopleIcon />, clickFunc: searchFunc },
-        { id: 'Add Items', icon: <DnsRoundedIcon />, clickFunc: addFunc },
-        { id: 'Statistics', icon: <PermMediaOutlinedIcon />},
-        { id: 'Shipping', icon: <PublicIcon /> },
-        { id: 'Account', icon: <SettingsEthernetIcon /> },
+        { id: "searchItems", icon: <PeopleIcon /> },
+        { id: "addItems", icon: <DnsRoundedIcon /> },
+        { id: "Statistics", icon: <PermMediaOutlinedIcon /> },
+        { id: "Shipping", icon: <PublicIcon /> },
+        { id: "Account", icon: <SettingsEthernetIcon /> },
       ],
-    }
+    },
   ];
-
 
   return (
     <Drawer variant="permanent" {...other}>
       <List disablePadding>
-        <ListItem className={clsx(classes.firebase, classes.item, classes.itemCategory)}>
+        <ListItem
+          className={clsx(classes.firebase, classes.item, classes.itemCategory)}
+        >
           INVENTMGMT
         </ListItem>
         {categories.map(({ id, children }) => (
@@ -93,21 +92,25 @@ function Navigator(props) {
               </ListItemText>
             </ListItem>
             {children.map(({ id: childId, icon, clickFunc }) => (
-              <ListItem
-                key={childId}
-                button
-                onClick = {clickFunc}
-                className={clsx(classes.item)}
-              >
-                <ListItemIcon className={classes.itemIcon}>{icon}</ListItemIcon>
-                <ListItemText
-                  classes={{
-                    primary: classes.itemPrimary,
-                  }}
+              <Link to={`/${childId}`}>
+                <ListItem
+                  key={childId}
+                  button
+                  onClick={clickFunc}
+                  className={clsx(classes.item)}
                 >
-                  {childId}
-                </ListItemText>
-              </ListItem>
+                  <ListItemIcon className={classes.itemIcon}>
+                    {icon}
+                  </ListItemIcon>
+                  <ListItemText
+                    classes={{
+                      primary: classes.itemPrimary,
+                    }}
+                  >
+                    {childId}
+                  </ListItemText>
+                </ListItem>
+              </Link>
             ))}
             <Divider className={classes.divider} />
           </React.Fragment>
@@ -121,4 +124,4 @@ Navigator.propTypes = {
   classes: PropTypes.object.isRequired,
 };
 
-export default withStyles(styles)(Navigator);
+export default withRouter(withStyles(styles)(Navigator));

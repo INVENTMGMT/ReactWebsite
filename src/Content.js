@@ -15,6 +15,7 @@ import FormControl from '@material-ui/core/FormControl';
 import FormGroup from '@material-ui/core/FormGroup';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox from '@material-ui/core/Checkbox';
+import backendFunction from './functions/backendFunction';
 
 const styles = (theme) => ({
   paper: {
@@ -42,7 +43,7 @@ const styles = (theme) => ({
 
 
 function Content(props) {
-  const { classes, items, handleSearch } = props;
+  const { classes } = props;
 
   const [state, setState] = React.useState({
     oos: false,
@@ -50,6 +51,9 @@ function Content(props) {
 
   const [itemName, setItemName] = React.useState('');
   const [itemSKU, setItemSKU] = React.useState('');
+
+  const [items, setItems] = React.useState([]);
+
 
   const handleChange = (event) => {
     setState({ ...state, [event.target.name]: event.target.checked });
@@ -59,6 +63,12 @@ function Content(props) {
     setItemName('');
     setItemSKU('');
     setState(false);
+  };
+
+  const handleSearch = (name, sku, checkbox) => {
+    /* make search query and query the backend */
+    backendFunction("getByName", {name}).then(resp =>
+      setItems(resp.data["data"]["getByName"]));
   };
 
   const { oos } = state;
