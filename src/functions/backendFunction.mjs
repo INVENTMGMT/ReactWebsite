@@ -2,7 +2,7 @@
 // functions. These must be done by passing a query string via a post request to the backend endpoint.
 
 import axios from 'axios'
-const endPoint = 'http://localhost:5000/dev/graphql';
+const endPoint = 'http://localhost:3000/dev/graphql';
 
 /*
 USAGE:
