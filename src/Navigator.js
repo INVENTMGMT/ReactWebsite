@@ -63,11 +63,11 @@ function Navigator(props) {
     {
       id: "Home",
       children: [
-        { id: "searchItems", icon: <PeopleIcon /> },
-        { id: "addItems", icon: <DnsRoundedIcon /> },
-        { id: "Statistics", icon: <PermMediaOutlinedIcon /> },
-        { id: "Shipping", icon: <PublicIcon /> },
-        { id: "Account", icon: <SettingsEthernetIcon /> },
+        { label: "Search Items", id: "searchItems", icon: <PeopleIcon /> },
+        { label: "Add Items", id: "addItems", icon: <DnsRoundedIcon /> },
+        { label: "Statistics", id: "Statistics", icon: <PermMediaOutlinedIcon /> },
+        { label: "Statistics", id: "Shipping", icon: <PublicIcon /> },
+        { label: "Account", id: "Account", icon: <SettingsEthernetIcon /> },
       ],
     },
   ];
@@ -91,12 +91,11 @@ function Navigator(props) {
                 {id}
               </ListItemText>
             </ListItem>
-            {children.map(({ id: childId, icon, clickFunc }) => (
-              <Link to={`/${childId}`}>
+            {children.map(({ label, id: childId, icon }) => (
+              <Link to={`/${childId}`} style={{textDecoration: 'none'}}>
                 <ListItem
                   key={childId}
                   button
-                  onClick={clickFunc}
                   className={clsx(classes.item)}
                 >
                   <ListItemIcon className={classes.itemIcon}>
@@ -107,7 +106,7 @@ function Navigator(props) {
                       primary: classes.itemPrimary,
                     }}
                   >
-                    {childId}
+                    {label}
                   </ListItemText>
                 </ListItem>
               </Link>
