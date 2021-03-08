@@ -56,10 +56,11 @@ function AddItemView(props) {
         quantity: itemQuantity,
       })
         .then((resp) => {
-          addItem([...addedItems, resp.data["data"]["addItem"]]);
+          addItem([resp.data["data"]["addItem"], ...addedItems]);
         })
         .catch((error) => {
           const response = error.response;
+          addItem([{'name': response.data.errors[0].message}, ...addedItems])
           response.data.errors.forEach((err) => {
             console.log("ERROR ADDING ITEM: " + err.message);
           });

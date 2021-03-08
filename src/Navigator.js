@@ -66,7 +66,7 @@ function Navigator(props) {
         { label: "Search Items", id: "searchItems", icon: <PeopleIcon /> },
         { label: "Add Items", id: "addItems", icon: <DnsRoundedIcon /> },
         { label: "Statistics", id: "Statistics", icon: <PermMediaOutlinedIcon /> },
-        { label: "Statistics", id: "Shipping", icon: <PublicIcon /> },
+        { label: "Shipping", id: "Shipping", icon: <PublicIcon /> },
         { label: "Account", id: "Account", icon: <SettingsEthernetIcon /> },
       ],
     },
