@@ -16,6 +16,7 @@ import Items from "./Items";
 
 const styles = (theme) => ({
   paper: {
+    width: '80%',
     margin: "auto",
     overflow: "hidden",
   },
@@ -50,7 +51,7 @@ function AddItemView(props) {
   const handleAdd = (itemName, itemPrice, itemQuantity) => {
     try {
       backendFunction("addItem", {
-        id: "0",
+        id: Math.floor(Math.random() * 100),
         name: itemName,
         price: itemPrice,
         quantity: itemQuantity,

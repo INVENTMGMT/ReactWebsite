@@ -19,6 +19,7 @@ import backendFunction from './functions/backendFunction';
 
 const styles = (theme) => ({
   paper: {
+    width: '80%',
     margin: 'auto',
     overflow: 'hidden',
   },
@@ -52,7 +53,7 @@ function Content(props) {
   const [itemName, setItemName] = React.useState('');
   const [itemSKU, setItemSKU] = React.useState('');
 
-  const [items, setItems] = React.useState([]);
+  const [items, setItems] = React.useState([{'name': "Pot", "price": "12", "quantity":"2"}]);
 
 
   const handleChange = (event) => {
