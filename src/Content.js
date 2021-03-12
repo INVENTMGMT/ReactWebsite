@@ -41,9 +41,6 @@ const styles = (theme) => ({
   },
 });
 
-
-
-
 function Content(props) {
   const { classes } = props;
 
@@ -54,7 +51,7 @@ function Content(props) {
   const [itemName, setItemName] = React.useState('');
   const [itemSKU, setItemSKU] = React.useState('');
 
-  const [items, setItems] = React.useState([{'id': 1, 'name': "Pot", "price": "12", "quantity":"2"}]);
+  const [items, setItems] = React.useState([]);
 
 
   const handleChange = (event) => {
@@ -69,21 +66,46 @@ function Content(props) {
 
   const handleSearch = (name, sku, checkbox) => {
     /* make search query and query the backend */
-    try {
+    if(name.length > 0){
       backendFunction("getByName", {name})
-        .then(resp =>
-          setItems(resp.data["data"]["getByName"]))
-    } catch (error) {
-      alert("Error: Missing Name parameter");
-      console.error(error.name + ": " + error.message);
+       .then(resp => {setItems(resp.data["data"]["getByName"]); console.log(resp);})
+       .catch(err => console.log("Error occured: " + err))
     }
+    else if(sku.length > 0){
+      const id = sku.toString();
+      backendFunction("getByID", {id: sku})
+       .then(resp => {setItems([resp.data["data"]["getByID"]]); console.log(resp)})
+       .catch(err => console.log("Error occured: " + err))
+    }
+    else {
+      backendFunction("getAllItems", {})
+       .then(resp => setItems(resp.data["data"]["getAllItems"]))
+       .catch(err => console.log("Error occured: " + err))
+    }
+  };
+
+  const removeItem = (id) => {
+    backendFunction("deleteItem", {id})
+      .then(resp => console.log(resp))
+      .then(resp => {
+        const newItems = items.filter(item => item.id !== id);
+        setItems(newItems);
+      })
+      .catch(err => console.log("Error occured: " + err));
+  };
+
+  const transactFunc = (id, quantity) => {
+    backendFunction("trx", {id, quantity})
+     .then(resp => console.log(resp))
+     .catch(err => console.log("Error occured: " + err))
   };
 
   const { oos } = state;
 
   return (
     <Paper className={classes.paper}>
-      <AppBar className={classes.searchBar} position="static" color="default" elevation={0}>
+      <AppBar className={classes.searchBar}
+        position="static" color="default" elevation={0}>
         <Toolbar>
           <Grid container spacing={2} alignItems="center">
             <Grid item>
@@ -139,7 +161,8 @@ function Content(props) {
                 className={classes.addUser}>
                 SEARCH
               </Button>
-              <Button variant="contained" onClick = {() => {clearFields()}} color="primary" className={classes.addUser}>
+              <Button variant="contained" onClick = {() => {clearFields()}}
+                color="primary" className={classes.addUser}>
                 CLEAR
               </Button>
             </Grid>
@@ -148,7 +171,7 @@ function Content(props) {
       </AppBar>
       <div className={classes.contentWrapper}>
         <Typography color="textSecondary" align="center">
-          <Items passedItems={items} />
+          <Items passedItems={items} removeFunc={removeItem} transactFunc={transactFunc}/>
         </Typography>
       </div>
     </Paper>
