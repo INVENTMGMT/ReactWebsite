@@ -1,31 +1,20 @@
-
 import React from 'react';
-import ListItem from '@material-ui/core/ListItem';
-import ListItemText from '@material-ui/core/ListItemText';
-import ListItemIcon from '@material-ui/core/ListItemIcon';
-import DirectionsWalkIcon from '@material-ui/icons/DirectionsWalk';
+import Item from './Item';
 
 function Items(props) {
-    const { passedItems } = props;
+    const { passedItems, removeFunc, transactFunc } = props;
     const items = [];
 
-    const createListItem = (ItemName) => {
-        
-        return (
-        <ListItem button onClick={() => console.log(ItemName)}>
-            <ListItemIcon>
-                <DirectionsWalkIcon/>
-            </ListItemIcon>
-            <ListItemText>
-                {ItemName}
-            </ListItemText>
-        </ListItem>
-        )
-    };
 
-    passedItems.forEach(element => {
-        items.push(createListItem(element));
-    });
+    if (passedItems.length > 0) {
+        passedItems.forEach(item => {
+            items.push(<Item id={item.id} name={item.name}
+              quantity={item.quantity} price={item.price} removeItem={removeFunc} transact={transactFunc}/>
+            )
+        });
+    } else {
+        items.push("No items matched your query");
+    }
 
     return (<>{items}</>)
 

@@ -62,18 +62,12 @@ function SearchBox(props) {
         <Grid item xs={3}></Grid>
         <Grid item xs={3}></Grid>
         <Grid item xs={3}>
-          <BootstrapButton
-            variant="contained"
-            onClick={clearFunc}
-          >
+          <BootstrapButton variant="contained" onClick={clearFunc}>
             CLEAR
           </BootstrapButton>
         </Grid>
         <Grid item xs={3}>
-          <BootstrapButton
-            variant="contained"
-            onClick={submitFunc}
-          >
+          <BootstrapButton variant="contained" onClick={submitFunc}>
             SUBMIT
           </BootstrapButton>
         </Grid>
