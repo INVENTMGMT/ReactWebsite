@@ -64,7 +64,7 @@ function Item(props) {
             onChange={event => setAmount(event.target.value)}
             placeholder="Amount"
           />
-          <Button onClick={ () => {transact(id, amount); setAnchorEl(null);}}>Transact</Button>
+          <Button onClick={ () => {transact(id, name, price, amount); setAnchorEl(null);}}>Transact</Button>
           <Button onClick={ () => {removeItem(id); setAnchorEl(null);}}>Remove From Inventory</Button>
         </Typography>
 

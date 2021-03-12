@@ -146,6 +146,19 @@ function backendFunction(functionName, params) {
             break;
         }
 
+        case "trx":
+        {
+            let { id, name, price, quantity } = params;
+            quantity = (quantity * -1);
+
+
+            queryStr += `addItem(id:"${id}", name:"${name}", price:${price}, quantity:${quantity})`;
+            queryStr += strEnd;
+
+            break;
+
+        }
+
         default:
             throw Error(`Function Name "${functionName}" not found - Make sure function name is spelled correctly.`);
     }
@@ -154,6 +167,8 @@ function backendFunction(functionName, params) {
     queryObj["query"] = queryStr;
 
     // Making POST request with query string
+    console.log(queryStr);
+    console.log(queryObj);
     return axios.post(endPoint, queryObj)
 
     

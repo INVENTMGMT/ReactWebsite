@@ -94,9 +94,12 @@ function Content(props) {
       .catch(err => console.log("Error occured: " + err));
   };
 
-  const transactFunc = (id, quantity) => {
-    backendFunction("trx", {id, quantity})
+  const transactFunc = (id, name, price, quantity) => {
+    backendFunction("trx", {id, name, price, quantity})
      .then(resp => console.log(resp))
+     .catch(err => console.log("Error occured: " + err))
+    backendFunction("getAllItems", {})
+     .then(resp => setItems(resp.data["data"]["getAllItems"]))
      .catch(err => console.log("Error occured: " + err))
   };
 
