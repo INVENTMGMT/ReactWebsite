@@ -21,6 +21,7 @@ const styles = (theme) => ({
   paper: {
     width: '80%',
     margin: 'auto',
+    marginTop: '3%',
     overflow: 'hidden',
   },
   searchBar: {
@@ -53,7 +54,7 @@ function Content(props) {
   const [itemName, setItemName] = React.useState('');
   const [itemSKU, setItemSKU] = React.useState('');
 
-  const [items, setItems] = React.useState([{'name': "Pot", "price": "12", "quantity":"2"}]);
+  const [items, setItems] = React.useState([{'id': 1, 'name': "Pot", "price": "12", "quantity":"2"}]);
 
 
   const handleChange = (event) => {
