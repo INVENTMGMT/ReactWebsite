@@ -152,10 +152,9 @@ const styles = {
 };
 
 function Paperbase(props) {
+
   const { classes } = props;
   const [mobileOpen, setMobileOpen] = useState(false);
-
-
 
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);

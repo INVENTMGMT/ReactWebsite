@@ -21,7 +21,7 @@ const styles = (theme) => ({
   paper: {
     width: '80%',
     margin: 'auto',
-    marginTop: '3%',
+    marginTop: '5%',
     overflow: 'hidden',
   },
   searchBar: {
