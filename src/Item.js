@@ -7,6 +7,7 @@ import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 
 function Item(props) {
+
   const { id, ItemName, quantity, price } = props;
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [amount, setAmount] = React.useState(0);
@@ -72,6 +73,6 @@ function Item(props) {
 
     </div>
   )
-
-
 }
+
+export default Item;
