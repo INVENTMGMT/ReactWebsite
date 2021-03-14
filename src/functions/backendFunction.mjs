@@ -75,9 +75,15 @@ function backendFunction(functionName, params) {
         case "addItem":
         {
             // Formatting params
-            let { id, name, price, quantity} = params;
-            if (!id || !name || !price || !quantity) {
-                throw Error("Incorrectly formatted params - AddItem");
+            let { id, name, price, quantity } = params;
+            if (!id || !name || price==null || quantity==null) {
+                console.log(`Params you gave:` + JSON.stringify(params));
+                if(!id) console.log("id");
+                if(!name) console.log("nam");
+                if(!price) { console.log("price"); console.log(`but ${params.price}`)};
+                if(!quantity) console.log("quan");
+                console.error("Incorrectly formatted params - AddItem");
+                return -1;
             }
 
             // Adding function header to query string & formatting it properly
@@ -162,7 +168,10 @@ function backendFunction(functionName, params) {
 // let resp = await backendFunction("addItem", {id: "a", name:"pep", quantity: 3, price:2})
 // resp = await backendFunction("getAllItems", {id: "a", name:"jackaie", quantity: 3, price:4})
 // resp = await backendFunction("deleteItem", {id: "a", name:"jackaie", quantity: 3, price:4})
-// console.log(resp)
+// 
+// let i = 1
+// backendFunction("addItem", {id: `id${i}`, name:`object${i}`, price: i, quantity:i})
+// .then(resp => console.log(resp))
 
 export default backendFunction;
 
