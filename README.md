@@ -20,3 +20,7 @@ For Python files, we shall use the styles depicted in pycodestyle; the package's
 </ol>
 <p>This should install all the necessary dependencies</p>
 
+<h3>Figma</h3>
+<a
+href="https://www.figma.com/file/YJZlZZXXwf9Z0C5rAfSNvP/Untitled?node-id=0%3A1">
+Figma</a>
